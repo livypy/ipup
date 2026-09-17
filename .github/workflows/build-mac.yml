@@ -1,0 +1,25 @@
+名称: 构建 macOS 报告器
+
+在:
+ workflow_dispatch: {}   # 手动触发
+  push:
+    paths: ['reporter.py']  # 或改动 reporter.py 时自动打包
+
+作业:
+  build-mac:
+运行环境: macos-14      # Apple Silicon（M1），如需 Intel 用 macos-13
+步骤:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        使用:
+          python版本: '3.11'
+
+      - 运行: pip install requests cryptography pyinstaller
+
+      - 运行: pyinstaller --onefile reporter.py
+
+      - 用途: actions/upload-artifact@v4
+        使用:
+          名称: reporter-macos
+路径: dist/reporter
