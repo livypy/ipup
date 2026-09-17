@@ -1,13 +1,13 @@
 name: Build macOS reporter
 
-on:
-  workflow_dispatch: {}   # 手动触发
+"on":
+  workflow_dispatch:
   push:
-    paths: ['reporter.py']  # 或改动 reporter.py 时自动打包
+    paths: ['reporter.py']
 
 jobs:
   build-mac:
-    runs-on: macos-14      # Apple Silicon (M1)，如需 Intel 用 macos-13
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
