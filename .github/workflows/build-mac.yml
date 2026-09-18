@@ -3,23 +3,30 @@ name: Build macOS reporter
 "on":
   workflow_dispatch:
   push:
-    paths: ['reporter.py']
+    paths:
+      - "reporter.py"
 
 jobs:
   build-mac:
-    runs-on: macos-14
+    runs-on: macos-13
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - run: pip install requests cryptography pyinstaller
+      - name: Install dependencies
+        run: pip install requests cryptography pyinstaller
 
-      - run: pyinstaller --onefile reporter.py
+      - name: Build reporter
+        run: pyinstaller --onefile --noconsole reporter.py
+
+      - name: Check architecture
+        run: file dist/reporter
 
       - uses: actions/upload-artifact@v4
         with:
-          name: reporter-macos
+          name: reporter-macos-intel
           path: dist/reporter
