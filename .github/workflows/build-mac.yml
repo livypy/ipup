@@ -8,7 +8,7 @@ name: Build macOS reporter
 
 jobs:
   build-mac:
-    runs-on: macos-13
+    runs-on: macos-13-large
 
     steps:
       - uses: actions/checkout@v4
